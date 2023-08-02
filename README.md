@@ -476,4 +476,12 @@ And the last step before deploying to production is to generate Solidity verifie
 
 And we are ready to go into production!
 
+### Production
+
+Deployed verifier contracts and their corresponding verifying keys can be found here:
+
+- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
+- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
+- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
+
 ### Fin
