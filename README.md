@@ -1,12 +1,13 @@
 # Semaphore Merkle Tree Batcher (semaphore-mtb) trusted setup ceremony
 
-[World ID](https://whitepaper.worldcoin.org/proof-of-personhood) is a privacy-preserving proof of personhood protocol that leverages the [Semaphore protocol](https://semaphore.appliedzkp.org/) in order to prove inclusion of members in a merkle tree where each leaf was verified using some method (e.g. [the orb](https://whitepaper.worldcoin.org/technical-implementation)), inserted into the tree and where its corresponding private key is self-custodied by each member. In the Semaphore protocol implementation there are individual sequential insertions. Individual insertions for big merkle trees are very expensive and therefore economically unfeasible onchain operations at the World ID userbase scale (user count can be found [here](https://worldcoin.org/)). In order to scale our efforts we developed the [Semaphore Merkle Tree Batcher](https://github.com/worldcoin/semaphore-mtb) (SMTB) which is composed of custom zero-knowledge circuits written in [gnark](https://github.com/ConsenSys/gnark) in order to do batch insertions into the Semaphore merkle tree. This gnark circuit leverages the groth16 proof system on the bn254 curve and requires a custom trusted setup ceremony to be made in order to achieve verifier soundness.
+This repo contains the transcript of trusted setup ceremony for [Semaphore Merkle Tree Batcher](https://github.com/worldcoin/semaphore-mtb). Please see that repo for details.
 
 If you want to read up more on what is a trusted setup and why it is a requirement for [zkSNARKs](https://zkhack.dev/2023/07/27/getting-started-in-zk/) (zero-knowledge proofs) that are non-universal like [groth16](https://eprint.iacr.org/2016/260) which is the proof system powering Semaphore and World ID, read:
 
 - [Understanding Trusted Setups: A Guide - Panther Protocol](https://blog.pantherprotocol.io/a-guide-to-understanding-trusted-setups/#:~:text=A%20trusted%20setup%20is%20a,similar%20cryptographic%20protocols%20rely%20on.)
 - [How do trusted setups work? - Vitalik Buterin](https://vitalik.ca/general/2022/03/14/trustedsetup.html)
 - [On-Chain Trusted Setup Ceremony - a16z crypto](https://a16zcrypto.com/posts/article/on-chain-trusted-setup-ceremony/#section--1)
+- [BGM17](https://eprint.iacr.org/2017/1050.pdf)
 
 ### Ceremony Specification
 
