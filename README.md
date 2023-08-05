@@ -16,7 +16,7 @@ For the phase 1 contribution (a.k.a powers of tau ceremony) we are using the [Pe
 
 ### Pre-Contribution 
 
-The chain of comands that has been performed before the first contribution.
+The chain of commands that has been performed before the first contribution.
 
 
 ```bash
