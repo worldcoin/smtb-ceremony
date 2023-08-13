@@ -485,4 +485,43 @@ Deployed [`semaphore-mtb`](https://github.com/worldcoin/semaphore-mtb/) verifier
 - Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
 - Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
 
+### Verifying the ceremony
+
+We can verify the keys generated in this ceremony are being used in the production contracts we see above by following the rest of this section.
+
+Download the contribution files of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
+
+- [`b10t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c0.ph2)
+- [`b10t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c14.ph2)
+- [`b100t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c0.ph2)
+- [`b100t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c14.ph2)
+- [`b1000t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c0.ph2)
+- [`b1000t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c14.ph2)
+
+Verify the hashes match using `semaphore-mtb-setup`:
+
+```bash
+./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b1000t30c14.ph2 b10t30c0.ph2
+```
+
+After we verify everything went correctly we extract the proving and verifying keys from the setup using the following commands:
+
+```bash
+./semaphore-mtb-setup key b10t30c14.ph2
+./semaphore-mtb-setup key b100t30c14.ph2
+./semaphore-mtb-setup key b1000t30c14.ph2
+```
+
+You can then check that the verifying key is used in the production contracts by comparing the verifying key generated above with the verifying key in the production contracts:
+
+- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
+- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
+- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
+
+The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2` and `delta2` which correspond to the verifying keys generated above for each respective contract.
+
+The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+
 ### Fin
