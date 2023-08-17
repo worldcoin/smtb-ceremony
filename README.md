@@ -254,6 +254,18 @@ Download the contribution files of the ceremony from AWS and verify the hashes m
 
 Verify the hashes match using `semaphore-mtb-setup`:
 
+Download [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup).
+
+```bash
+git clone https://github.com/worldcoin/semaphore-mtb-setup
+cd semaphore-mtb-setup && go build -v
+```
+
+Download the trusted setup ceremony coordinator tool and the powers of tau files.
+
+```bash
+cd semaphore-mtb-setup && go build -v
+
 ```bash
 ./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
 ./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
@@ -274,9 +286,9 @@ You can then check that the verifying key is used in the production contracts by
 - Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
 - Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
 
-The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2` and `delta2` which correspond to the verifying keys generated above for each respective contract.
+The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2`, and `delta2` which correspond to the verifying keys generated above for each respective contract.
 
-The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would be computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
 
 #### System used
 
