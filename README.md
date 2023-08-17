@@ -241,6 +241,8 @@ Deployed [`semaphore-mtb`](https://github.com/worldcoin/semaphore-mtb/) verifier
 
 ### Verifying the ceremony
 
+The trust assumptions of a trusted setup ceremony is that as long as 1 of the n participants is honest, the setup is secure. In this case, we have 14 participants and we can verify that the ceremony was performed correctly by checking that the verifying key generated in the ceremony is the same as the one used in the production contracts. If you want to check that 14 individuals did indeed contribute to the ceremony, you can check the [list of contributors](#list-of-contributors) above and verify that the contribution hashes match the ones in this [Github issue](https://github.com/worldcoin/smtb-ceremony/issues/2) where contributors posted their contributions from their own accounts.
+
 We can verify the keys generated in this ceremony are being used in the production contracts we see above by following the rest of this section.
 
 Download the contribution files of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
@@ -253,6 +255,18 @@ Download the contribution files of the ceremony from AWS and verify the hashes m
 - [`b1000t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c14.ph2)
 
 Verify the hashes match using `semaphore-mtb-setup`:
+
+Download [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup).
+
+```bash
+git clone https://github.com/worldcoin/semaphore-mtb-setup
+cd semaphore-mtb-setup && go build -v
+```
+
+Download the trusted setup ceremony coordinator tool and the powers of tau files.
+
+```bash
+cd semaphore-mtb-setup && go build -v
 
 ```bash
 ./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
@@ -274,9 +288,9 @@ You can then check that the verifying key is used in the production contracts by
 - Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
 - Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
 
-The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2` and `delta2` which correspond to the verifying keys generated above for each respective contract.
+The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2`, and `delta2` which correspond to the verifying keys generated above for each respective contract.
 
-The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would be computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
 
 #### System used
 
