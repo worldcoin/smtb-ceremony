@@ -13,164 +13,13 @@ If you want to read up more on what is a trusted setup and why it is a requireme
 
 For the phase 1 contribution (a.k.a powers of tau ceremony) we are using the [Perpetual Powers of Tau ceremony](https://github.com/privacy-scaling-explorations/perpetualpowersoftau) (up to the 54th contribution) through the AWS S3 hosted bucket in the [snarkjs repo README](https://github.com/iden3/snarkjs/blob/master/README.md#7-prepare-phase-2). We built a [deserializer](https://github.com/worldcoin/ptau-deserializer) from the `.ptau` format into the `.ph1` format used by gnark and initialized a phase 2 using a fork ([semaphore-mtb-setup](https://github.com/worldcoin/semaphore-mtb-setup)) of a ceremony coordinator wrapper on top of gnark built by the [zkbnb team](https://github.com/bnb-chain/zkbnb-setup).
 
-#### System used
+### Production
 
-[AWS m5.16xlarge](https://aws.amazon.com/ec2/instance-types/m5/) instance
+Deployed [`semaphore-mtb`](https://github.com/worldcoin/semaphore-mtb/) verifier contracts and their corresponding verifying keys can be found here:
 
-- 256 GiB RAM
-- 64 cores
-- 500 GiB Volume
-
-### Pre-Contribution
-
-The chain of commands that has been performed before the first contribution.
-
-```bash
-git clone https://github.com/worldcoin/semaphore-mtb-setup
-git clone https://github.com/worldcoin/semaphore-mtb
-```
-
-Download the trusted setup ceremony coordinator tool and the powers of tau files.
-
-```bash
-cd semaphore-mtb-setup && go build -v
-
-# Download Powers of Tau files for each respective circuit
-wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_20.ptau
-mv powersOfTau28_hez_final_20.ptau 20.ptau
-
-wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_23.ptau
-mv powersOfTau28_hez_final_23.ptau 23.ptau
-
-wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_26.ptau
-mv powersOfTau28_hez_final_26.ptau 26.ptau
-
-# Convert .ptau format into .ph1
-./semaphore-mtb-setup p1i 20.ptau 20.ph1
-./semaphore-mtb-setup p1i 23.ptau 23.ph1
-./semaphore-mtb-setup p1i 26.ptau 26.ph1
-
-# go up a folder
-cd ../
-```
-
-Generate r1cs representation of the necessary sizes of the Semaphore Merkle Tree Batcher (SMTB):
-
-- Tree depth: 30, Batch size: 10
-  - constraints: 725439
-  - powers of Tau needed: 20
-- Tree depth: 30, Batch size: 100
-  - constraints: 6305289
-  - powers of Tau needed: 23
-- Tree depth: 30, Batch size: 1000
-  - constraints: 60375789
-  - powers of Tau needed: 26
-
-```bash
-cd semaphore-mtb && go build -v
-
-# requires quite a bit of compute
-./gnark-mbu r1cs --batch-size 10 --tree-depth 30 --output b10t30.r1cs
-./gnark-mbu r1cs --batch-size 100 --tree-depth 30 --output b100t30.r1cs
-./gnark-mbu r1cs --batch-size 1000 --tree-depth 30 --output b1000t30.r1cs
-
-# move the r1cs files into the coordinator folder
-mv b10t30.r1cs b100t30.r1cs b1000t30.r1cs ../semaphore-mtb-setup/
-
-# go up a folder
-cd ../
-```
-
-Initialize the phase 2 of the setup (the slowest process):
-
-```bash
-# make folders for each phase 2
-mkdir b10 b100 b1000
-
-cd semaphore-mtb-setup
-
-# initialize each respective phase2
-./semaphore-mtb-setup p2n 20.ph1 b10t30.r1cs b10t30c0.ph2
-
-mv b10t30c0.ph2 srs.lag evals ../b10/
-
-./semaphore-mtb-setup p2n 23.ph1 b100t30.r1cs b100t30c0.ph2
-
-mv b100t30c0.ph2 srs.lag evals ../b100/
-
-./semaphore-mtb-setup p2n 26.ph1 b1000t30.r1cs b1000t30c0.ph2
-
-mv b1000t30c0.ph2 srs.lag evals ../b1000/
-```
-
-### The Contribution Process
-
-#### Requirements
-
-- Go (using 1.20.5)
-- Git
-- \> 16 GiB RAM
-- Good connectivity (to upload and download files fast to s3)
-- The more cores the better (shorter contribution time)
-- \> 10 GiB storage
-
-#### Steps
-
-Download the corresponding files for contributions (presigned AWS S3 bucket urls)
-
-Contribution time (on aws m5.16xlarge 256GiB RAM <4GB used - the more cores the better):
-b10: 5-10sec (50MB file)
-b100: < 5 min (419MB file)
-b1000: 20-30 min (3.5GB file)
-
-You will receive pre-signed URLs from [dcbuilder.eth](https://twitter.com/DCbuild3r) for a GET request of a .ph2 file off of AWS S3 of the form:
-
-> https://<S3_BUCKET>.s3.amazonaws.com/<FILENAME>?AWSAccessKeyId=<ACCESS_KEY_ID>&Signature=<SIGNATURE>&Expires=<EXPIRY_TIME>
-
-Submit a GET request using:
-
-```bash
-curl --output b10t30cXX.ph2 <PRESIGNED_URL>
-curl --output b100t30cXX.ph2 <PRESIGNED_URL>
-curl --output b1000t30cXX.ph2 <PRESIGNED_URL>
-```
-
-where XX is the current contribution number.
-
-Download and build the [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup) coordinator tool to perform the contribution:
-
-```bash
-git clone https://github.com/worldcoin/semaphore-mtb-setup
-cd semaphore-mtb-setup
-go build -v
-```
-
-Perform the contribution for each individual .ph2 file and increase the XX counter by one. Each command will output a contribution hash, please copy each of these down into a file of the format `<NAME/PSEUDONYM>_CONTRIBUTION.txt` and prepend each value with the corresponding batch size of the .ph2 file you contributed to (b10, b100 or b1000). Please also share via a message what NAME or PSEUDONYM you selected since it is required to generate a pre-signed S3 upload URL.
-
-```bash
-./semaphore-mtb-setup p2c b10t30cXX.ph2 b10t30c(XX + 1).ph2
-```
-
-```bash
-./semaphore-mtb-setup p2c b100t30cXX.ph2 b100t30c(XX + 1).ph2
-```
-
-```bash
-./semaphore-mtb-setup p2c b100t30cXX.ph2 b100t30c(XX + 1).ph2
-```
-
-You will also receive pre-signed URLs to upload your contribution to the S3 bucket, after your contributions are done and you have the output files, upload them using the following commands:
-
-```bash
-curl -v -T b10t30c(XX + 1).ph2 <PRESIGNED_URL>
-curl -v -T b100t30c(XX + 1).ph2 <PRESIGNED_URL>
-curl -v -T b1000t30c(XX + 1).ph2 <PRESIGNED_URL>
-curl -v -T <NAME/PSEUDONYM>_CONTRIBUTION.txt <PRESIGNED_URL>
-```
-
-> NOTE: if your file is above 5GiB (shouldn't ever get to that) the request will fail. If that happens, please reach out.
-
-Congratulations! You have successfully contributed to our phase 2 trusted setup ceremony!
+- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
+- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
+- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
 
 # List of contributors
 
@@ -390,6 +239,204 @@ Congratulations! You have successfully contributed to our phase 2 trusted setup 
 - contribution hash: `ba4fc054df53635a5efc9aac72e9de45a910adebd7da4f67aecd76e22e6ae9cc`
 - generated file: `b1000t30c14.ph2`
 
+### Verifying the ceremony
+
+We can verify the keys generated in this ceremony are being used in the production contracts we see above by following the rest of this section.
+
+Download the contribution files of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
+
+- [`b10t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c0.ph2)
+- [`b10t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c14.ph2)
+- [`b100t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c0.ph2)
+- [`b100t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c14.ph2)
+- [`b1000t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c0.ph2)
+- [`b1000t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c14.ph2)
+
+Verify the hashes match using `semaphore-mtb-setup`:
+
+```bash
+./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b1000t30c14.ph2 b10t30c0.ph2
+```
+
+After we verify everything went correctly we extract the proving and verifying keys from the setup using the following commands:
+
+```bash
+./semaphore-mtb-setup key b10t30c14.ph2
+./semaphore-mtb-setup key b100t30c14.ph2
+./semaphore-mtb-setup key b1000t30c14.ph2
+```
+
+You can then check that the verifying key is used in the production contracts by comparing the verifying key generated above with the verifying key in the production contracts:
+
+- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
+- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
+- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
+
+The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2` and `delta2` which correspond to the verifying keys generated above for each respective contract.
+
+The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+
+#### System used
+
+[AWS m5.16xlarge](https://aws.amazon.com/ec2/instance-types/m5/) instance
+
+- 256 GiB RAM
+- 64 cores
+- 500 GiB Volume
+
+### Pre-Contribution
+
+The chain of commands that has been performed before the first contribution.
+
+```bash
+git clone https://github.com/worldcoin/semaphore-mtb-setup
+git clone https://github.com/worldcoin/semaphore-mtb
+```
+
+Download the trusted setup ceremony coordinator tool and the powers of tau files.
+
+```bash
+cd semaphore-mtb-setup && go build -v
+
+# Download Powers of Tau files for each respective circuit
+wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_20.ptau
+mv powersOfTau28_hez_final_20.ptau 20.ptau
+
+wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_23.ptau
+mv powersOfTau28_hez_final_23.ptau 23.ptau
+
+wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_26.ptau
+mv powersOfTau28_hez_final_26.ptau 26.ptau
+
+# Convert .ptau format into .ph1
+./semaphore-mtb-setup p1i 20.ptau 20.ph1
+./semaphore-mtb-setup p1i 23.ptau 23.ph1
+./semaphore-mtb-setup p1i 26.ptau 26.ph1
+
+# go up a folder
+cd ../
+```
+
+Generate r1cs representation of the necessary sizes of the Semaphore Merkle Tree Batcher (SMTB):
+
+- Tree depth: 30, Batch size: 10
+  - constraints: 725439
+  - powers of Tau needed: 20
+- Tree depth: 30, Batch size: 100
+  - constraints: 6305289
+  - powers of Tau needed: 23
+- Tree depth: 30, Batch size: 1000
+  - constraints: 60375789
+  - powers of Tau needed: 26
+
+```bash
+cd semaphore-mtb && go build -v
+
+# requires quite a bit of compute
+./gnark-mbu r1cs --batch-size 10 --tree-depth 30 --output b10t30.r1cs
+./gnark-mbu r1cs --batch-size 100 --tree-depth 30 --output b100t30.r1cs
+./gnark-mbu r1cs --batch-size 1000 --tree-depth 30 --output b1000t30.r1cs
+
+# move the r1cs files into the coordinator folder
+mv b10t30.r1cs b100t30.r1cs b1000t30.r1cs ../semaphore-mtb-setup/
+
+# go up a folder
+cd ../
+```
+
+Initialize the phase 2 of the setup (the slowest process):
+
+```bash
+# make folders for each phase 2
+mkdir b10 b100 b1000
+
+cd semaphore-mtb-setup
+
+# initialize each respective phase2
+./semaphore-mtb-setup p2n 20.ph1 b10t30.r1cs b10t30c0.ph2
+
+mv b10t30c0.ph2 srs.lag evals ../b10/
+
+./semaphore-mtb-setup p2n 23.ph1 b100t30.r1cs b100t30c0.ph2
+
+mv b100t30c0.ph2 srs.lag evals ../b100/
+
+./semaphore-mtb-setup p2n 26.ph1 b1000t30.r1cs b1000t30c0.ph2
+
+mv b1000t30c0.ph2 srs.lag evals ../b1000/
+```
+
+### The Contribution Process
+
+#### Requirements
+
+- Go (using 1.20.5)
+- Git
+- \> 16 GiB RAM
+- Good connectivity (to upload and download files fast to s3)
+- The more cores the better (shorter contribution time)
+- \> 10 GiB storage
+
+#### Steps
+
+Download the corresponding files for contributions (presigned AWS S3 bucket urls)
+
+Contribution time (on aws m5.16xlarge 256GiB RAM <4GB used - the more cores the better):
+b10: 5-10sec (50MB file)
+b100: < 5 min (419MB file)
+b1000: 20-30 min (3.5GB file)
+
+You will receive pre-signed URLs from [dcbuilder.eth](https://twitter.com/DCbuild3r) for a GET request of a .ph2 file off of AWS S3 of the form:
+
+> https://<S3_BUCKET>.s3.amazonaws.com/<FILENAME>?AWSAccessKeyId=<ACCESS_KEY_ID>&Signature=<SIGNATURE>&Expires=<EXPIRY_TIME>
+
+Submit a GET request using:
+
+```bash
+curl --output b10t30cXX.ph2 <PRESIGNED_URL>
+curl --output b100t30cXX.ph2 <PRESIGNED_URL>
+curl --output b1000t30cXX.ph2 <PRESIGNED_URL>
+```
+
+where XX is the current contribution number.
+
+Download and build the [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup) coordinator tool to perform the contribution:
+
+```bash
+git clone https://github.com/worldcoin/semaphore-mtb-setup
+cd semaphore-mtb-setup
+go build -v
+```
+
+Perform the contribution for each individual .ph2 file and increase the XX counter by one. Each command will output a contribution hash, please copy each of these down into a file of the format `<NAME/PSEUDONYM>_CONTRIBUTION.txt` and prepend each value with the corresponding batch size of the .ph2 file you contributed to (b10, b100 or b1000). Please also share via a message what NAME or PSEUDONYM you selected since it is required to generate a pre-signed S3 upload URL.
+
+```bash
+./semaphore-mtb-setup p2c b10t30cXX.ph2 b10t30c(XX + 1).ph2
+```
+
+```bash
+./semaphore-mtb-setup p2c b100t30cXX.ph2 b100t30c(XX + 1).ph2
+```
+
+```bash
+./semaphore-mtb-setup p2c b100t30cXX.ph2 b100t30c(XX + 1).ph2
+```
+
+You will also receive pre-signed URLs to upload your contribution to the S3 bucket, after your contributions are done and you have the output files, upload them using the following commands:
+
+```bash
+curl -v -T b10t30c(XX + 1).ph2 <PRESIGNED_URL>
+curl -v -T b100t30c(XX + 1).ph2 <PRESIGNED_URL>
+curl -v -T b1000t30c(XX + 1).ph2 <PRESIGNED_URL>
+curl -v -T <NAME/PSEUDONYM>_CONTRIBUTION.txt <PRESIGNED_URL>
+```
+
+> NOTE: if your file is above 5GiB (shouldn't ever get to that) the request will fail. If that happens, please reach out.
+
+Congratulations! You have successfully contributed to our phase 2 trusted setup ceremony!
+
 ### Ceremony integrity check
 
 Now that the ceremony is done, we need to verify that all contributions were performed correctly and that `semaphore-mtb-setup` integrity tests pass. To do so we run:
@@ -476,52 +523,5 @@ And the last step before deploying to production is to generate Solidity verifie
 ```
 
 And we are ready to go into production!
-
-### Production
-
-Deployed [`semaphore-mtb`](https://github.com/worldcoin/semaphore-mtb/) verifier contracts and their corresponding verifying keys can be found here:
-
-- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
-- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
-- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
-
-### Verifying the ceremony
-
-We can verify the keys generated in this ceremony are being used in the production contracts we see above by following the rest of this section.
-
-Download the contribution files of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
-
-- [`b10t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c0.ph2)
-- [`b10t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c14.ph2)
-- [`b100t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c0.ph2)
-- [`b100t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c14.ph2)
-- [`b1000t30c0.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c0.ph2)
-- [`b1000t30c14.ph2`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b1000t30c14.ph2)
-
-Verify the hashes match using `semaphore-mtb-setup`:
-
-```bash
-./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
-./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
-./semaphore-mtb-setup p2v b1000t30c14.ph2 b10t30c0.ph2
-```
-
-After we verify everything went correctly we extract the proving and verifying keys from the setup using the following commands:
-
-```bash
-./semaphore-mtb-setup key b10t30c14.ph2
-./semaphore-mtb-setup key b100t30c14.ph2
-./semaphore-mtb-setup key b1000t30c14.ph2
-```
-
-You can then check that the verifying key is used in the production contracts by comparing the verifying key generated above with the verifying key in the production contracts:
-
-- Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
-- Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
-- Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
-
-The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2` and `delta2` which correspond to the verifying keys generated above for each respective contract.
-
-The proving key is running inside of the `semaphore-mtb` service and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
 
 ### Fin
