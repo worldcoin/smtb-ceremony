@@ -73,7 +73,7 @@ Verify the hashes match using `semaphore-mtb-setup`:
 Download [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup).
 
 > [!NOTE]
-> You need a [git](https://git-scm.com/) and Go language [installed](https://golang.org/doc/install) to build the tool.
+> You need [git](https://git-scm.com/) and the Go language [installed](https://golang.org/doc/install) to build the tool.
 
 ```bash
 git clone https://github.com/worldcoin/semaphore-mtb-setup
@@ -109,15 +109,81 @@ cd ../b1000
 ./semaphore-mtb-setup key b1000t30c14.ph2
 ```
 
-This command will generate the `pk` (proving key) and `vk` (verification key) files respectively. You can then check that the verifying key is used in the production contracts by comparing the contents of the `vk` file generated above with the verifying key in the production contracts for each batch size respectively:
+This command will generate the `pk` (proving key) and `vk` (verification key) files respectively.
+
+The proving key (`pk` file) is used inside of the [`semaphore-mtb`](https://github.com/worldcoin/semaphore-mtb) service which is running `gnark` and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would be computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+
+### Verifying the verifier contracts using `semaphore-mtb`
+
+Dowload `semaphore-mtb`, checkout the right branch, and build the tool:
+
+```bash
+git clone https://github.com/worldcoin/semaphore-mtb
+cd semaphore-mtb
+git checkout dcbuid3r/import-mpc-phase2
+go build -v
+```
+
+### Testing semaphore-mtb end-to-end
+
+Now that we have `pk` and `vk` files for each circuit from previous steps, let's generate a `semaphore-mtb` gnark proving system, generate some test parameters, generate a proof and test whether they verify!
+
+Now let's generate the gnark proving systems from each of the respective `vk` and `pk` pairs:
+
+```bash
+# Clone and build semaphore-mtb, then:
+./gnark-mbu import-setup --batch-size 10 --tree-depth 30 --pk ../b10/pk --vk ../b10/vk --output ../b10/ps
+./gnark-mbu import-setup --batch-size 100 --tree-depth 30 --pk ../b100/pk --vk ../b100/vk --output ../b100/ps
+./gnark-mbu import-setup --batch-size 1000 --tree-depth 30 --pk ../b1000/pk --vk ../b1000/vk --output ../b1000/ps
+```
+
+`ps` is the proving system represented as a file which we'll now use to generate sample proofs for test input parameters:
+
+![](https://hackmd.io/_uploads/rkCJU17Y2.png)
+
+Next let's generate some test parameters and generate a sample proof using our new `ps` proof systems and write it as json to a file:
+
+```bash
+./gnark-mbu gen-test-params --batch-size 10 --tree-depth 30 > ../b10/params.json
+cat ../b10/params.json | ./gnark-mbu prove --keys-file ../b10/ps > ../b10/proof10.json
+./gnark-mbu gen-test-params --batch-size 100 --tree-depth 30 > ../b100/params.json
+cat ../b100/params.json | ./gnark-mbu prove --keys-file ../b100/ps > ../b100/proof100.json
+./gnark-mbu gen-test-params --batch-size 1000 --tree-depth 30 > ../b1000/params.json
+cat ../b1000/params.json | ./gnark-mbu prove --keys-file ../b1000/ps > ../b1000/proof1000.json
+```
+
+And the last step is to verify the proof!
+
+> Install [yq](https://github.com/mikefarah/yq/#install) to help with parsing json
+
+```bash
+# grab the input hash from the params.json using yq
+yq e ".inputHash" ../b10/params.json
+# verify proof
+cat ../b10/proof10.json | ./gnark-mbu verify --input-hash <INPUT_HASH> --keys-file ../b10/ps
+yq e ".inputHash" ../b100/params.json
+cat ../b100/proof100.json | ./gnark-mbu verify --input-hash <INPUT_HASH> --keys-file ../b100/ps
+yq e ".inputHash" ../b100/params.json
+cat ../b1000/proof100.json | ./gnark-mbu verify --input-hash <INPUT_HASH> --keys-file ../b1000/ps
+```
+
+![](https://hackmd.io/_uploads/SJs55lmKn.png)
+
+And the last step before deploying to production is to generate Solidity verifier contracts for these gnark groth16 proofs. Using `semaphore-mtb` run:
+
+```bash
+./gnark-mbu export-solidity --keys-file ../b10/ps --output ../b10/verifier.sol
+./gnark-mbu export-solidity --keys-file ../b100/ps --output ../b100/verifier.sol
+./gnark-mbu export-solidity --keys-file ../b1000/ps --output ../b1000/verifier.sol
+```
+
+Now that you have the verifier contracts, you can verify that the bytecode matches when using the right solc compiler version and compilation parameters, these details can be found on the Etherescan verification page for each contract:
 
 - Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
 - Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)
 - Batch size 1000, tree depth 30: [Etherscan](https://etherscan.io/address/0xf07d3efadD82A1F0b4C5Cc3476806d9a170147Ba#code)
 
-The key can be seen under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2`, and `delta2` which correspond to the verifying keys generated above for each respective contract.
-
-The proving key (`pk` file) is used inside of the `semaphore-mtb` service which is running `gnark` and there is no straightforward way to verify that the production deployment of the service is using the proving key generated in this ceremony. However, we can infer that the correct proving key is being used because it would be computationally infeasible to generate a valid proof for the on-chain verifiers otherwise.
+The key can be checked under the `verifyingKey()` internal function of the contract where we see the variables `alfa1`, `beta2`, `gamma2`, and `delta2` which correspond to the verifying keys generated above for each respective contract.
 
 ## List of contributors
 
