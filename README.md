@@ -85,7 +85,7 @@ Run trusted setup ceremony coordinator tool verificaiton command on the trusted 
 
 ```bash
 cd ../b10
-./semaphore-mtb-setup p2v b10t30c14.ph2 b10b10t30c0.ph2
+./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
 cd ../b100
 ./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
 cd ../b1000
