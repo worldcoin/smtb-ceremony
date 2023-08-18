@@ -87,9 +87,9 @@ Run trusted setup ceremony coordinator tool verificaiton command on the trusted 
 cd ../b10
 ./semaphore-mtb-setup p2v b10t30c14.ph2 b10t30c0.ph2
 cd ../b100
-./semaphore-mtb-setup p2v b100t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b100t30c14.ph2 b100t30c0.ph2
 cd ../b1000
-./semaphore-mtb-setup p2v b1000t30c14.ph2 b10t30c0.ph2
+./semaphore-mtb-setup p2v b1000t30c14.ph2 b1000t30c0.ph2
 ```
 
 After we verify everything went correctly we extract the proving and verifying keys from the setup using the following commands:
