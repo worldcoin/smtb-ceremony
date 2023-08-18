@@ -27,12 +27,12 @@ The trust assumptions of a trusted setup ceremony is that as long as 1 of the n 
 
 We can verify the keys generated in this ceremony are being used in the production contracts we see above by following the rest of this section.
 
-Download the contribution files (26.173 GB total) of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
+Download the contribution files (26.258 GB total) of the ceremony from AWS and verify the hashes match the ones that contributors have committed to publicly [here](https://github.com/worldcoin/smtb-ceremony/issues/2):
 
 - [`b10t30c0.ph2 (50.6MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c0.ph2)
 - [`b10t30c14.ph2 (50.6MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b10t30c14.ph2)
 - [`evals10 (74.6MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/evals10)
-- [`srs10.lag (74.6MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/srs10.lag)
+- [`srs10.lag (160.MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/srs10.lag)
 - [`b100t30c0.ph2 (419.2MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c0.ph2)
 - [`b100t30c14.ph2 (419.2MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/b100t30c14.ph2)
 - [`evals100 (684.6MB)`](https://wld-shareable-data-us-east-1.s3.amazonaws.com/evals100)
