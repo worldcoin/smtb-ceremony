@@ -72,6 +72,9 @@ Verify the hashes match using `semaphore-mtb-setup`:
 
 Download [`semaphore-mtb-setup`](https://github.com/worldcoin/semaphore-mtb-setup).
 
+> [!NOTE]
+> You need a [git](https://git-scm.com/) and Go language [installed](https://golang.org/doc/install) to build the tool.
+
 ```bash
 git clone https://github.com/worldcoin/semaphore-mtb-setup
 cd semaphore-mtb-setup && go build -v
