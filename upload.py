@@ -44,7 +44,7 @@ def usage_demo():
     s3_client = boto3.client('s3')
     client_action = 'get_object' if args.action == 'get' else 'put_object'
     url = generate_presigned_url(
-        s3_client, client_action, {'Bucket': 'dc-trusted-ceremony', 'Key': args.key}, 86_400)
+        s3_client, client_action, {'Bucket': '<BUCKET_NAME>', 'Key': args.key}, 86_400)
     print(url)
     print("-"*50)
 
