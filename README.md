@@ -181,7 +181,7 @@ And the last step to verify the production deployment is to generate Solidity ve
 ./gnark-mbu export-solidity --keys-file ../b1000/ps --output ../b1000/verifier.sol
 ```
 
-Now that you have the verifier contracts, you can verify that the bytecode of the `verifier.sol` contracts generated locally match the contracts deployed in production that can be found below when using the right `solc` compiler version and compilation parameters, these details can be found on the Etherescan verification page for each contract:
+Now that you have the verifier contracts, you can verify that the bytecode of the `verifier.sol` contracts generated locally match the contracts deployed in production that can be found below when using the right `solc` compiler version and compilation parameters, these details can be found on the Etherscan verification page for each contract:
 
 - Batch size 10, tree depth 30: [Etherscan](https://etherscan.io/address/0x6e37bAB9d23bd8Bdb42b773C58ae43C6De43A590#code)
 - Batch size 100, tree depth 30: [Etherscan](https://etherscan.io/address/0x03ad26786469c1F12595B0309d151FE928db6c4D#code)

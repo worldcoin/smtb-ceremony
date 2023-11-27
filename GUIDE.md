@@ -1,3 +1,5 @@
+# Trusted Setup Guide
+
 This guide will walk you through the process of performing a trusted setup for [semaphore-mtb](https://github.com/worldcoin/semaphore-mtb) (SMTB). There are two main types of circuits for which you can perform a trusted setup: merkle tree insertion and deletion circuits. Each of these circuits is parametrized by the batch size and the tree depth. Each different parametrization will generate a different r1cs file which will represent the constraints of our circuits for which we will have to do a trusted setup for.
 
 In the case of the World ID tree we will be working on a merkle tree of depth 30, the batch sizes the [signup-sequencer](https://github.com/worldcoin/signup-sequencer) will support are:
@@ -66,7 +68,7 @@ git clone https://github.com/worldcoin/semaphore-mtb-setup.git
 # move all the ph1 and r1cs files into the setup repository
 mv semaphore-mtb/*.r1cs semaphore-mtb/*.ph1 semaphore-mtb-setup
 cd semaphore-mtb-setup && go build
-# the name of the phase2 file should cointain c0 at the end indicating it is the seed phase 2 file with no contributions
+# the name of the phase2 file should contain c0 at the end indicating it is the seed phase 2 file with no contributions
 ./semaphore-mtb-setup p2n <MODE>_b<BATCH_SIZE>t30.ph1 <MODE>_b<BATCH_SIZE>t30.ph1 <MODE>_b<BATCH_SIZE>t30.r1cs <MODE>_b<BATCH_SIZE>t30c0.ph2
 ```
 
@@ -87,7 +89,7 @@ python upload.py put <MODE>_b<BATCH_SIZE>t30c0.ph2
 curl -v -T <PH2FILE>.ph2 <PRESIGNED_URL>
 ```
 
-This concludes all the steps for the initalization of the phase 2 of the trusted setup ceremony.
+This concludes all the steps for the initialization of the phase 2 of the trusted setup ceremony.
 
 ### Phase 2 contributions
 
@@ -141,12 +143,12 @@ After we verify everything went correctly we extract the proving and verifying k
 > In order to run the `key` command we need the respective `evals` and `srs.lag` files we downloaded above to exist in the directory we execute `semaphore-mtb-setup` from. The commands below are quite computationally expensive and will run for a while.
 
 ```bash
-mkdir insertionb10
-mkdir insertionb100
-mkdir insertionb600
-mkdir insertionb1000
-mkdir deletionb10
-mkdir deletionb100
+mkdir insertion_b10
+mkdir insertion_b100
+mkdir insertion_b600
+mkdir insertion_b1000
+mkdir deletion_b10
+mkdir deletion_b100
 # for every phase 2 contribution file
 mv <last_contribution_file.ph2> <corresponding_directory_mode_batch_size>/
 cd <corresponding_directory_mode_batch_size>/
@@ -163,7 +165,7 @@ The proving key (`pk` file) is used inside of the [`semaphore-mtb`](https://gith
 > ![NOTE]
 > Please install Go in order to generate the proving system files. ([link](https://go.dev/doc/install))
 
-Dowload `semaphore-mtb`, checkout the right branch, and build the tool:
+Download `semaphore-mtb`, checkout the right branch, and build the tool:
 
 ```bash
 git clone https://github.com/worldcoin/semaphore-mtb
@@ -201,7 +203,7 @@ And the last verification step is to verify the proof!
 #Grab the input hash from the params.json using yq
 yq e ".inputHash" <corresponding_directory_mode_batch_size>/params.json
 # verify proof
-cat <corresponding_directory_mode_batch_sizep>/proof.json | ./gnark-mbu verify --input-hash <INPUT_HASH> --keys-file <corresponding_directory_mode_batch_size>/ps
+cat <corresponding_directory_mode_batch_size>/proof.json | ./gnark-mbu verify --input-hash <INPUT_HASH> --keys-file <corresponding_directory_mode_batch_size>/ps
 ```
 
 ### Export solidity contracts
