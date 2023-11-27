@@ -19,7 +19,7 @@ fi
 if [ -e "contribution.env" ]; then
     source contribution.env
 else
-    echo "s3_urls file does not exist. Run generate_s3_urls.sh and try again."
+    echo "contribution.env file does not exist. Ask the coordinator to give you the file by running generate_s3_urls.sh and try again."
     exit 1
 fi
 
