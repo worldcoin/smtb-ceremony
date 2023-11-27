@@ -2,7 +2,7 @@
 
 # Check if AWS CLI is not configured
 if [ -z "$(aws configure get aws_access_key_id 2>/dev/null)" ] || [ -z "$(aws configure get aws_secret_access_key 2>/dev/null)" ]; then
-    echo "AWS CLI is not configured."
+    echo "AWS CLI is not configured. Run aws configure and try again."
 fi
 
 # Check Python installation
@@ -12,9 +12,7 @@ if command -v python3 &>/dev/null; then
     fi
 else
     echo "Python 3 is not installed."
-    echo "Installing Python3 using brew..."
-    brew install python3
-    pip3 install boto3
+    echo "Please install Python 3 and try again."
 fi
 
 if [ -e "keys" ]; then
@@ -43,6 +41,8 @@ fi
 
 # Fetch the number
 contribution_number=$1
+
+previous_contribution_number=$contribution_number
 
 echo "The contribution number provided is: $contribution_number"
 
@@ -82,8 +82,8 @@ upload_insertion_b1000t30_url=$(python3 upload.py $upload_insertion_b1000t30 put
 upload_deletion_b10t30_url=$(python3 upload.py $upload_deletion_b10t30 put | grep -o $url_pattern)
 upload_deletion_b100t30_url=$(python3 upload.py $upload_deletion_b100t30 put | grep -o $url_pattern)
 
-# filename for urls
-urls="s3_urls"
+# filename for contribution info
+urls="contribution.env"
 
 echo "Saving the URLs to $urls file..."
 
@@ -100,6 +100,9 @@ UPLOAD_INSERTION_B100T30='$upload_insertion_b100t30_url'
 UPLOAD_INSERTION_B600T30='$upload_insertion_b600t30_url'
 UPLOAD_INSERTION_B1000T30='$upload_insertion_b1000t30_url'
 UPLOAD_DELETION_B10T30='$upload_deletion_b10t30_url'
+# metadata
+CONTRIBUTION_NUMBER='$contribution_number'
+PREVIOUS_CONTRIBUTION_NUMBER='$previous_contribution_number'
 "
 
 echo "$output" > $urls
