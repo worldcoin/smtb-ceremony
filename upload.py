@@ -22,7 +22,7 @@ def generate_presigned_url(s3_client, client_method, method_parameters, expires_
             Params=method_parameters,
             ExpiresIn=expires_in
         )
-        logger.info("Got presigned URL: %s", url)
+        #logger.info("Got presigned URL: %s", url)
     except ClientError:
         logger.exception(
             "Couldn't get a presigned URL for client method '%s'.", client_method)
@@ -31,7 +31,7 @@ def generate_presigned_url(s3_client, client_method, method_parameters, expires_
 
 
 def usage_demo():
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    #logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -43,10 +43,10 @@ def usage_demo():
 
     s3_client = boto3.client('s3')
     client_action = 'get_object' if args.action == 'get' else 'put_object'
-    generate_presigned_url(
-        s3_client, client_action, {'Bucket': '<BUCKET_NAME>', 'Key': args.key}, 86_400)
-    print('-'*88)
-
+    url = generate_presigned_url(
+        s3_client, client_action, {'Bucket': 'dc-trusted-ceremony', 'Key': args.key}, 86_400)
+    print(url)
+    print("-"*50)
 
 if __name__ == '__main__':
     usage_demo()
