@@ -21,7 +21,11 @@ We first need to generate all the respective r1cs files to figure out how many c
 
 ```bash
 git clone https://github.com/worldcoin/semaphore-mtb.git
-cd semaphore-stb && go build
+cd semaphore-mtb && go build
+
+```
+
+```bash
 ./gnark-mbu r1cs --mode {insertion/deletion} --batch-size <BATCH_SIZE> --tree-depth 30 --output <MODE>_b<BATCH_SIZE>t30.r1cs
 ```
 
@@ -43,6 +47,10 @@ Once we have downloaded the .ptau files from [perpetualpowersoftau](https://gith
 ```bash
 git clone https://github.com/worldcoin/ptau-deserializer.git
 cd ptau-deserializer && go build
+
+```
+
+```bash
 go run main.go convert --input <CEREMONY>.ptau --output <CEREMONY>.ph1
 ```
 
