@@ -6,7 +6,7 @@ In the case of the World ID tree we will be working on a merkle tree of depth 30
   - 10
   - 100
   - 600
-  - 1000
+  - 1200
 - Deletion
   - 10
   - 100
@@ -34,7 +34,7 @@ Here are all the .r1cs files we need:
 - insertion_b10t30.r1cs
 - insertion_b100t30.r1cs
 - insertion_b600t30.r1cs
-- insertion_b1000t30.r1cs
+- insertion_b1200t30.r1cs
 - deletion_b10t30.r1cs
 - deletion_b100t30.r1cs
 
@@ -59,7 +59,7 @@ After running this step, we should have the following files:
 - insertion_b10t30.ph1
 - insertion_b100t30.ph1
 - insertion_b600t30.ph1
-- insertion_b1000t30.ph1
+- insertion_b1200t30.ph1
 - deletion_b10t30.ph1
 - deletion_b100t30.ph1
 
@@ -152,7 +152,7 @@ After we verify everything went correctly we extract the proving and verifying k
 mkdir insertionb10
 mkdir insertionb100
 mkdir insertionb600
-mkdir insertionb1000
+mkdir insertionb1200
 mkdir deletionb10
 mkdir deletionb100
 # for every phase 2 contribution file
