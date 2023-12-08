@@ -46,23 +46,23 @@ previous_contribution_number=$contribution_number
 
 echo "The contribution number provided is: $contribution_number"
 
-download_insertion_b10t30="insertion_b10t30c$contribution_number.ph2"
-download_insertion_b100t30="insertion_b100t30c$contribution_number.ph2"
-download_insertion_b600t30="insertion_b600t30c$contribution_number.ph2"
-download_insertion_b1200t30a="insertion_b1200t30c$contribution_number.ph2_parts_aa"
-download_insertion_b1200t30b="insertion_b1200t30c$contribution_number.ph2_parts_ab"
-download_deletion_b10t30="deletion_b10t30c$contribution_number.ph2"
-download_deletion_b100t30="deletion_b100t30c$contribution_number.ph2"
+download_insertion_b10t30="insertion_b10/insertion_b10t30c$contribution_number.ph2"
+download_insertion_b100t30="insertion_b100/insertion_b100t30c$contribution_number.ph2"
+download_insertion_b600t30="insertion_b600/insertion_b600t30c$contribution_number.ph2"
+download_insertion_b1200t30a="insertion_b1200/insertion_b1200t30c$contribution_number.ph2_parts_aa"
+download_insertion_b1200t30b="insertion_b1200/insertion_b1200t30c$contribution_number.ph2_parts_ab"
+download_deletion_b10t30="deletion_b10/deletion_b10t30c$contribution_number.ph2"
+download_deletion_b100t30="deletion_b100/deletion_b100t30c$contribution_number.ph2"
 
 ((contribution_number++))
 
-upload_insertion_b10t30="insertion_b10t30c$contribution_number.ph2"
-upload_insertion_b100t30="insertion_b100t30c$contribution_number.ph2"
-upload_insertion_b600t30="insertion_b600t30c$contribution_number.ph2"
-upload_insertion_b1200t30a="insertion_b1200t30c$contribution_number.ph2_parts_aa"
-upload_insertion_b1200t30b="insertion_b1200t30c$contribution_number.ph2_parts_ab"
-upload_deletion_b10t30="deletion_b10t30c$contribution_number.ph2"
-upload_deletion_b100t30="deletion_b100t30c$contribution_number.ph2"
+upload_insertion_b10t30="insertion_b10/insertion_b10t30c$contribution_number.ph2"
+upload_insertion_b100t30="insertion_b100/insertion_b100t30c$contribution_number.ph2"
+upload_insertion_b600t30="insertion_b600/insertion_b600t30c$contribution_number.ph2"
+upload_insertion_b1200t30a="insertion_b1200/insertion_b1200t30c$contribution_number.ph2_parts_aa"
+upload_insertion_b1200t30b="insertion_b1200/insertion_b1200t30c$contribution_number.ph2_parts_ab"
+upload_deletion_b10t30="deletion_b10/deletion_b10t30c$contribution_number.ph2"
+upload_deletion_b100t30="deletion_b100/deletion_b100t30c$contribution_number.ph2"
 
 url_pattern='https://[^[:space:]]*'
 
