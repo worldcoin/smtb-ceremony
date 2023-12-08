@@ -22,7 +22,6 @@ We first need to generate all the respective r1cs files to figure out how many c
 ```bash
 git clone https://github.com/worldcoin/semaphore-mtb.git
 cd semaphore-mtb && go build
-
 ```
 
 ```bash
@@ -31,12 +30,12 @@ cd semaphore-mtb && go build
 
 Here are all the .r1cs files we need:
 
-- insertion_b10t30.r1cs
-- insertion_b100t30.r1cs
-- insertion_b600t30.r1cs
-- insertion_b1200t30.r1cs
-- deletion_b10t30.r1cs
-- deletion_b100t30.r1cs
+- insertion_b10t30.r1cs (2^20 >= 735819 constraints)
+- insertion_b100t30.r1cs (2^23 >= 6393519 constraints)
+- insertion_b600t30.r1cs (2^26 >= 36822519 constraints)
+- insertion_b1200t30.r1cs (2^27 >= 73452519 constraints)
+- deletion_b10t30.r1cs (2^19 >= 338170 constraints)
+- deletion_b100t30.r1cs (2^22 >= 2230754 constraints)
 
 > [!IMPORTANT]
 > The Powers of Tau of the files we select for each circuit need to satisfy the following equation:
@@ -90,7 +89,7 @@ aws configure
 ```bash
 source keys
 # for each circuit phase 2 and r1cs file
-python upload.py put <MODE>_b<BATCH_SIZE>t30c0.ph2
+python upload.py <MODE>_b<BATCH_SIZE>t30c0.ph2 put
 # the command above will spit out a <PRESIGNED_URL>
 curl -v -T <PH2FILE>.ph2 <PRESIGNED_URL>
 ```
