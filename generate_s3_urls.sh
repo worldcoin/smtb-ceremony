@@ -49,7 +49,8 @@ echo "The contribution number provided is: $contribution_number"
 download_insertion_b10t30="insertion_b10t30c$contribution_number.ph2"
 download_insertion_b100t30="insertion_b100t30c$contribution_number.ph2"
 download_insertion_b600t30="insertion_b600t30c$contribution_number.ph2"
-download_insertion_b1000t30="insertion_b1000t30c$contribution_number.ph2"
+download_insertion_b1200t30a="insertion_b1200t30c$contribution_number.ph2_parts_aa"
+download_insertion_b1200t30b="insertion_b1200t30c$contribution_number.ph2_parts_ab"
 download_deletion_b10t30="deletion_b10t30c$contribution_number.ph2"
 download_deletion_b100t30="deletion_b100t30c$contribution_number.ph2"
 
@@ -58,7 +59,8 @@ download_deletion_b100t30="deletion_b100t30c$contribution_number.ph2"
 upload_insertion_b10t30="insertion_b10t30c$contribution_number.ph2"
 upload_insertion_b100t30="insertion_b100t30c$contribution_number.ph2"
 upload_insertion_b600t30="insertion_b600t30c$contribution_number.ph2"
-upload_insertion_b1000t30="insertion_b1000t30c$contribution_number.ph2"
+upload_insertion_b1200t30a="insertion_b1200t30c$contribution_number.ph2_parts_aa"
+upload_insertion_b1200t30b="insertion_b1200t30c$contribution_number.ph2_parts_ab"
 upload_deletion_b10t30="deletion_b10t30c$contribution_number.ph2"
 upload_deletion_b100t30="deletion_b100t30c$contribution_number.ph2"
 
@@ -70,7 +72,8 @@ echo "Generating presigned S3 URLs for downloading and uploading files..."
 download_insertion_b10t30_url=$(python3 upload.py $download_insertion_b10t30 get | grep -o $url_pattern) 
 download_insertion_b100t30_url=$(python3 upload.py $download_insertion_b100t30 get | grep -o $url_pattern)
 download_insertion_b600t30_url=$(python3 upload.py $download_insertion_b600t30 get | grep -o $url_pattern)
-download_insertion_b1000t30_url=$(python3 upload.py $download_insertion_b1000t30 get | grep -o $url_pattern)
+download_insertion_b1200t30a_url=$(python3 upload.py $download_insertion_b1200t30a get | grep -o $url_pattern)
+download_insertion_b1200t30b_url=$(python3 upload.py $download_insertion_b1200t30b get | grep -o $url_pattern)
 download_deletion_b10t30_url=$(python3 upload.py $download_deletion_b10t30 get | grep -o $url_pattern)
 download_deletion_b100t30_url=$(python3 upload.py $download_deletion_b100t30 get | grep -o $url_pattern)
 
@@ -78,7 +81,8 @@ download_deletion_b100t30_url=$(python3 upload.py $download_deletion_b100t30 get
 upload_insertion_b10t30_url=$(python3 upload.py $upload_insertion_b10t30 put | grep -o $url_pattern)
 upload_insertion_b100t30_url=$(python3 upload.py $upload_insertion_b100t30 put | grep -o $url_pattern)
 upload_insertion_b600t30_url=$(python3 upload.py $upload_insertion_b600t30 put | grep -o $url_pattern)
-upload_insertion_b1000t30_url=$(python3 upload.py $upload_insertion_b1000t30 put | grep -o $url_pattern)
+upload_insertion_b1200t30a_url=$(python3 upload.py $upload_insertion_b1200t30a put | grep -o $url_pattern)
+upload_insertion_b1200t30b_url=$(python3 upload.py $upload_insertion_b1200t30b put | grep -o $url_pattern)
 upload_deletion_b10t30_url=$(python3 upload.py $upload_deletion_b10t30 put | grep -o $url_pattern)
 upload_deletion_b100t30_url=$(python3 upload.py $upload_deletion_b100t30 put | grep -o $url_pattern)
 
@@ -92,13 +96,15 @@ output="# download urls
 DOWNLOAD_INSERTION_B10T30='$download_insertion_b10t30_url'
 DOWNLOAD_INSERTION_B100T30='$download_insertion_b100t30_url'
 DOWNLOAD_INSERTION_B600T30='$download_insertion_b600t30_url'
-DOWNLOAD_INSERTION_B1000T30='$download_insertion_b1000t30_url'
+DOWNLOAD_INSERTION_B1200T30A='$download_insertion_b1200t30a_url'
+DOWNLOAD_INSERTION_B1200T30B='$download_insertion_b1200t30b_url'
 DOWNLOAD_DELETION_B10T30='$download_deletion_b10t30_url'
 # upload urls
 UPLOAD_INSERTION_B10T30='$upload_insertion_b10t30_url'
 UPLOAD_INSERTION_B100T30='$upload_insertion_b100t30_url'
 UPLOAD_INSERTION_B600T30='$upload_insertion_b600t30_url'
-UPLOAD_INSERTION_B1000T30='$upload_insertion_b1000t30_url'
+UPLOAD_INSERTION_B1200T30A='$upload_insertion_b1200t30a_url'
+UPLOAD_INSERTION_B1200T30B='$upload_insertion_b1200t30b_url'
 UPLOAD_DELETION_B10T30='$upload_deletion_b10t30_url'
 # metadata
 CONTRIBUTION_NUMBER='$contribution_number'

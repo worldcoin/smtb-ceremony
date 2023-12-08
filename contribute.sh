@@ -33,7 +33,10 @@ echo "Downloading insertion files..."
 curl --output "insertion_b10t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2" "$DOWNLOAD_INSERTION_B10T30"
 curl --output "insertion_b100t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2" "$DOWNLOAD_INSERTION_B100T30"
 curl --output "insertion_b600t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2" "$DOWNLOAD_INSERTION_B600T30"
-curl --output "insertion_b1000t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2" "$DOWNLOAD_INSERTION_B1000T30"
+curl --output "insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2_parts_aa" "$DOWNLOAD_INSERTION_B1200T30A"
+curl --output "insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2_parts_ab" "$DOWNLOAD_INSERTION_B1200T30B"
+
+cat "insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2_parts_aa" "insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2_parts_ab" > "insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
 
 # Download deletion files
 echo "Downloading deletion files..."
@@ -48,12 +51,14 @@ echo "Contributing to insertion circuits trusted setup (will take a long time, v
 ./semaphore-mtb-setup p2c insertion_b10t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 insertion_b10t30c$CONTRIBUTION_NUMBER.ph2
 ./semaphore-mtb-setup p2c insertion_b100t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 insertion_b100t30c$CONTRIBUTION_NUMBER.ph2
 ./semaphore-mtb-setup p2c insertion_b600t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 insertion_b600t30c$CONTRIBUTION_NUMBER.ph2
-./semaphore-mtb-setup p2c insertion_b1000t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 insertion_b1000t30c$CONTRIBUTION_NUMBER.ph2
+./semaphore-mtb-setup p2c insertion_b1200t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 insertion_b1200t30c$CONTRIBUTION_NUMBER.ph2
 
 echo "Contributing to deletion circuits trusted setup (should take less, only two small circuits)..."
 
 ./semaphore-mtb-setup p2c deletion_b10t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 deletion_b10t30c$CONTRIBUTION_NUMBER.ph2
 ./semaphore-mtb-setup p2c deletion_b100t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2 deletion_b100t30c$CONTRIBUTION_NUMBER.ph2
+
+split -n 2  "insertion_b1200t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b1200t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
 # Upload all contribution files
 echo "Uploading insertion files (the faster the internet the better)..."
@@ -61,7 +66,8 @@ echo "Uploading insertion files (the faster the internet the better)..."
 curl -v -T "insertion_b10t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_INSERTION_B10T30"
 curl -v -T "insertion_b100t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_INSERTION_B100T30"
 curl -v -T "insertion_b600t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_INSERTION_B600T30"
-curl -v -T "insertion_b1000t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_INSERTION_B1000T30"
+curl -v -T "insertion_b1200t30c$CONTRIBUTION_NUMBER.ph2_parts_aa" "$UPLOAD_INSERTION_B1200T30A"
+curl -v -T "insertion_b1200t30c$CONTRIBUTION_NUMBER.ph2_parts_ab" "$UPLOAD_INSERTION_B1200T30B"
 
 echo "Uploading deletion files..."
 
