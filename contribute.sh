@@ -73,3 +73,5 @@ echo "Uploading deletion files..."
 
 curl -v -T "deletion_b10t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_DELETION_B10T30"
 curl -v -T "deletion_b100t30c$CONTRIBUTION_NUMBER.ph2" "$UPLOAD_DELETION_B100T30"
+
+echo "The contribution has completed successfully! Thank you for participating in the ceremony!"
