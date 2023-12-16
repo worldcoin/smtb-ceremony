@@ -29,6 +29,38 @@ chmod +x contribute.sh
 
 ### Insertion mode batch size 10 SMTB circuit
 
+1. dc
+
+2. dzejkop
+
+3. atris
+
+4. nick
+
+5. marcin
+
+6. steven
+
+7. kobi
+
+8. daniel
+
+9. Aayush
+
+10. remco
+
+11. thor
+
+12. yi sun
+
+13. shumo
+
+14. Bartek
+
+15. zellic
+
+16. justin drake
+
 - contribution hash: ``
 - generated file: `insertion_b10t30c01.ph2`
 
