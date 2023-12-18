@@ -84,7 +84,7 @@ cp semaphore-mtb-setup ../b100
 cp semaphore-mtb-setup ../b1000
 ```
 
-Run trusted setup ceremony coordinator tool verificaiton command on the trusted setup output files.
+Run trusted setup ceremony coordinator tool verification command on the trusted setup output files.
 
 ```bash
 cd ../b10
