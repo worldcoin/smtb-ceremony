@@ -1,0 +1,21 @@
+Verifying update of Z
+Verifying update of PKK
+#Contributions := 16
+Verifying contribution 1 with Hash := aaeb4907718b5e85359e8369ee0d5c5788b4f060b129ddb131d768322037c25d
+Verifying contribution 2 with Hash := 52413099dd3ba8fe60f3eef4cede4ff05683734ae8e12ad6aa5a74323a72b978
+Verifying contribution 3 with Hash := a2175a689c195bfc6b90b48f88aefa1635b16f813f4c9e242b80c20356498616
+Verifying contribution 4 with Hash := efb04ea4f34450ce05668f6ba9e370eec19c824eb3266bccaf714ecfdce954f3
+Verifying contribution 5 with Hash := b897bb27e377906e2b8159ae58eed4be033ff68846b0e21cf983b3b977bab20a
+Verifying contribution 6 with Hash := 2c965736efddbeb48ccc18a00da45a9ad5c360114882c1430d0e6b43cc7a9ebf
+Verifying contribution 7 with Hash := 3a8f7640da5981cc7b0c0217809eaad7c6c14665d1968eb7f31c63ef927c763c
+Verifying contribution 8 with Hash := 363d04c24817f3a5227a0e67445c414e87dcf92a787939b36b8a4640fb3df27d
+Verifying contribution 9 with Hash := 14a29008c2907d29b862ba6d493ac81e4e84c23f77d870e412d1d5c2622f9bfc
+Verifying contribution 10 with Hash := 3b843408dbe7e6a4dd0c3e67ba25f475a208d3d345efa500b9e71a52d81bffb7
+Verifying contribution 11 with Hash := 40cc51917e2ee78e30b600c67ac2791a03e031f19c3ff31b769de6faec270142
+Verifying contribution 12 with Hash := 0c838d07f23461c9ac95acb935084ea896d810a235b5a79915ca9b766b2e627c
+Verifying contribution 13 with Hash := 0bac3392e1c47fd272efe4067a52b2a9edcfccb34a50e97aa5102a7436ce04ce
+Verifying contribution 14 with Hash := a362e82b89be5330ea51a9a361f53bd878f0387a83b7790259cf96dac8748771
+Verifying contribution 15 with Hash := 0d4775ee88ebc5e0bf55c7dffa2bee58d14393be1495ec74625dd59874d0ef1a
+Verifying contribution 16 with Hash := 94e6ddb7afdcd3535553155a7e6bee655f1f4d0e83dcb29ce36f027f2a2d78c9
+Verifying Delta of last contribution
+Contributions verification has been successful
