@@ -31,7 +31,7 @@ In this list we mention all the contributors that have successfully contributed 
 
 ### Insertion mode batch size 10 SMTB circuit
 
-1. [dcbuilder](https://github.com/dcbuild3r) (Tools for Humanity - TfH)
+1. [dcbuilder](https://github.com/dcbuild3r) (TfH)
 
 2. [dzejkop](https://github.com/Dzejkop) (TfH)
 
@@ -39,11 +39,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
@@ -65,7 +65,7 @@ In this list we mention all the contributors that have successfully contributed 
 
 ### Insertion mode batch size 100 SMTB circuit
 
-1. [dcbuilder](https://github.com/dcbuild3r) (Tools for Humanity - TfH)
+1. [dcbuilder](https://github.com/dcbuild3r) (TfH)
 
 2. [dzejkop](https://github.com/Dzejkop) (TfH)
 
@@ -73,11 +73,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
@@ -107,11 +107,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
@@ -141,11 +141,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
@@ -175,11 +175,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
@@ -209,11 +209,11 @@ In this list we mention all the contributors that have successfully contributed 
 
 4. Nick Takacs (TfH)
 
-5. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
+5. [Kobi Gurkan](https://github.com/kobigurk)
 
 6. [Steven Smith](https://twitter.com/reldev) (TfH)
 
-7. [Kobi Gurkan](https://github.com/kobigurk)
+7. [Marcin Kostrzewa](https://github.com/kustosz) (TfH-affiliated)
 
 8. [0xKitsune](https://github.com/0xKitsune) (TfH)
 
