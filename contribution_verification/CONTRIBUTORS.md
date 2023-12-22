@@ -117,6 +117,20 @@ In this list we mention all the contributors that have successfully contributed 
 
 9. [Remco Bloemen](https://github.com/recmo) (Worldcoin Foundation)
 
+10. [Yush G](https://github.com/Divide-By-0)
+
+11. [Bartek Kiepuszewski](https://twitter.com/bkiepuszewski/)
+
+12. [Eddy Lazzarin](https://twitter.com/eddylazzarin)
+
+13. [Shumo Chu](https://github.com/stechu)
+
+14. [Thor Kamphefner](https://github.com/thor314)
+
+15. [zellic](https://www.zellic.io/)
+
+16. [Yi Sun](https://github.com/yi-sun)
+
 ### Insertion mode batch size 1200 SMTB circuit
 
 1. [dcbuilder](https://github.com/dcbuild3r) (TfH)
@@ -149,9 +163,7 @@ In this list we mention all the contributors that have successfully contributed 
 
 15. [zellic](https://www.zellic.io/)
 
-16. [justin drake](https://twitter.com/drakefjustin)
-
-17. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
+16. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
 
 ### Deletion mode batch size 10 SMTB circuit
 
@@ -185,9 +197,7 @@ In this list we mention all the contributors that have successfully contributed 
 
 15. [zellic](https://www.zellic.io/)
 
-16. [justin drake](https://twitter.com/drakefjustin)
-
-17. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
+16. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
 
 ### Deletion mode batch size 100 SMTB circuit
 
@@ -221,6 +231,4 @@ In this list we mention all the contributors that have successfully contributed 
 
 15. [zellic](https://www.zellic.io/)
 
-16. [justin drake](https://twitter.com/drakefjustin)
-
-17. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
+16. [dcbuilder](https://github.com/dcbuild3r) (TfH) (2nd contribution)
