@@ -40,13 +40,14 @@ for part in {a..d}; do
   echo "Downloading part: ${part}..."
   curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
 done
+
 parts=""
+
 for part in {a..d}; do
-  parts="${part}"
-  "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
+  parts="${parts} insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
 done
 
-curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2" "$DOWNLOAD_INSERTION_B10T30"
+cat ${parts} > "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
 
 # perform the contribution
 echo "Contributing to the max insertion batch size circuit..."
