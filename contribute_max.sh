@@ -52,7 +52,7 @@ cat ${parts} > "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
 # perform the contribution
 echo "Contributing to the max insertion batch size circuit..."
 
-./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2 insertion_b10t30c${CONTRIBUTION_NUMBER}.ph2 > contribution.log
+./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2" insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2 > contribution.log
 
 split -n 4 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
