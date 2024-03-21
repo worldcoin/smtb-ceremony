@@ -35,13 +35,13 @@ baseUrl="https://semaphore-mtb-trusted-setup-ceremony.s3.amazonaws.com/insertion
 prefix="insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2"
 suffix="_parts_a"
 
-for part in {a..f}; do
+for part in {a..d}; do
   url="${baseUrl}/${prefix}${suffix}${part}"
   echo "Downloading part: ${part}..."
   curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
 done
 parts=""
-for part in {a..f}; do
+for part in {a..d}; do
   parts="${part}"
   "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
 done
@@ -53,7 +53,7 @@ echo "Contributing to the max insertion batch size circuit..."
 
 ./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2 insertion_b10t30c${CONTRIBUTION_NUMBER}.ph2
 
-split -n 6 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
+split -n 4 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
 # Upload all contribution files
 echo "Uploading insertion files (the faster the internet the better)..."
@@ -62,7 +62,7 @@ baseUrl="https://semaphore-mtb-trusted-setup-ceremony.s3.amazonaws.com/insertion
 prefix="insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2"
 suffix="_parts_a"
 
-for part in {a..f}; do
+for part in {a..d}; do
   url="${baseUrl}/${prefix}${suffix}${part}"
   echo "Uploading part: ${part}..."
   curl -v -T "${url}"
