@@ -52,21 +52,16 @@ cat ${parts} > "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
 # perform the contribution
 echo "Contributing to the max insertion batch size circuit..."
 
-./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2 insertion_b10t30c${CONTRIBUTION_NUMBER}.ph2
+./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2 insertion_b10t30c${CONTRIBUTION_NUMBER}.ph2 > contribution.log
 
 split -n 4 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
 # Upload all contribution files
 echo "Uploading insertion files (the faster the internet the better)..."
 
-baseUrl="https://semaphore-mtb-trusted-setup-ceremony.s3.amazonaws.com/insertion_b4385"
-prefix="insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2"
-suffix="_parts_a"
-
-for part in {a..d}; do
-  url="${baseUrl}/${prefix}${suffix}${part}"
-  echo "Uploading part: ${part}..."
-  curl -v -T "${url}"
-done
+curl -v -T "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_aa" "$UPLOAD_INSERTION_B4385T30A"
+curl -v -T "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_ab" "$UPLOAD_INSERTION_B4385T30B"
+curl -v -T "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_ac" "$UPLOAD_INSERTION_B4385T30C"
+curl -v -T "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_ad" "$UPLOAD_INSERTION_B4385T30D"
 
 echo "The contribution has completed successfully! Thank you for participating in the ceremony!"
