@@ -42,16 +42,19 @@ fi
 # Fetch the number
 contribution_number=$1
 
-previous_contribution_number=$contribution_number
+previous_contribution_number=$contribution_number-1
 
 echo "The contribution number provided is: $contribution_number"
 
-download_insertion_b4385t30a="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_aa"
-download_insertion_b4385t30b="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ab"
-download_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_aa"
-download_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ab"
+echo "The previous contribution number is: $previous_contribution_number"
 
-((contribution_number++))
+echo "Generating S3 URLs for downloading the previous contribution files..."
+
+download_insertion_b4385t30a="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_aa"
+download_insertion_b4385t30b="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ab"
+download_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_aa"
+download_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ab"
+
 
 upload_insertion_b4385t30a="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_aa"
 upload_insertion_b4385t30b="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ab"
