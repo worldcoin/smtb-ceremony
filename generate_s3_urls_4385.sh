@@ -42,7 +42,7 @@ fi
 # Fetch the number
 contribution_number=$1
 
-previous_contribution_number=$contribution_number-1
+previous_contribution_number=$(expr $contribution_number - 1)
 
 echo "The contribution number provided is: $contribution_number"
 
