@@ -52,14 +52,14 @@ echo "Generating S3 URLs for downloading the previous contribution files..."
 
 download_insertion_b4385t30a="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_aa"
 download_insertion_b4385t30b="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ab"
-download_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_aa"
-download_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ab"
+download_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ac"
+download_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$previous_contribution_number.ph2_parts_ad"
 
 
 upload_insertion_b4385t30a="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_aa"
 upload_insertion_b4385t30b="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ab"
-upload_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_aa"
-upload_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ab"
+upload_insertion_b4385t30c="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ac"
+upload_insertion_b4385t30d="insertion_b4385/insertion_b4385t30c$contribution_number.ph2_parts_ad"
 
 
 url_pattern='https://[^[:space:]]*'
@@ -87,14 +87,14 @@ echo "Saving the URLs to $urls file..."
 output="# download urls
 DOWNLOAD_INSERTION_B4385T30A='$download_insertion_b4385t30a_url'
 DOWNLOAD_INSERTION_B4385T30B='$download_insertion_b4385t30b_url'
-DOWNLOAD_INSERTION_B4385t30C='$download_insertion_b4385t30c_url'
-DOWNLOAD_INSERTION_B4385t30D='$download_insertion_b4385t30d_url'
+DOWNLOAD_INSERTION_B4385T30C='$download_insertion_b4385t30c_url'
+DOWNLOAD_INSERTION_B4385T30D='$download_insertion_b4385t30d_url'
 
 # upload urls
 UPLOAD_INSERTION_B4385T30A='$upload_insertion_b4385t30a_url'
 UPLOAD_INSERTION_B4385T30B='$upload_insertion_b4385t30b_url'
-UPLOAD_INSERTION_B4385t30C='$upload_insertion_b4385t30c_url'
-UPLOAD_INSERTION_B4385t30D='$upload_insertion_b4385t30d_url'
+UPLOAD_INSERTION_B4385T30C='$upload_insertion_b4385t30c_url'
+UPLOAD_INSERTION_B4385T30D='$upload_insertion_b4385t30d_url'
 
 # metadata
 CONTRIBUTION_NUMBER='$contribution_number'

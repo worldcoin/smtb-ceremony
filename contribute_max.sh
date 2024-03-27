@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Check if Go is installed
 if ! command -v go &>/dev/null; then
     echo "Go is not installed."
@@ -36,15 +38,15 @@ prefix="insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2"
 suffix="_parts_a"
 
 for part in {a..d}; do
-  url="${baseUrl}/${prefix}${suffix}${part}"
-  echo "Downloading part: ${part}..."
-  curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
+ url="${baseUrl}/${prefix}${suffix}${part}"
+ echo "Downloading part: ${part}..."
+ curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
 done
 
 parts=""
 
 for part in {a..d}; do
-  parts="${parts} insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
+ parts="${parts} insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
 done
 
 cat ${parts} > "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
