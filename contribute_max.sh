@@ -56,6 +56,8 @@ echo "Contributing to the max insertion batch size circuit..."
 
 ./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2" insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2 >contribution.log
 
+cat contribution.log
+
 split -n 4 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
 # Upload all contribution files
