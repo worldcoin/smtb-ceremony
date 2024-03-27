@@ -4,25 +4,25 @@ set -e
 
 # Check if Go is installed
 if ! command -v go &>/dev/null; then
-    echo "Go is not installed."
-    echo "Please install Go and try again."
-    exit 1
+	echo "Go is not installed."
+	echo "Please install Go and try again."
+	exit 1
 fi
 
 # Check if the semaphore-mtb-setup folder exists
 if [ ! -d "semaphore-mtb-setup" ]; then
-    git clone https://github.com/worldcoin/semaphore-mtb-setup.git
-    cd semaphore-mtb-setup
-    go build
-    cd ..
+	git clone https://github.com/worldcoin/semaphore-mtb-setup.git --branch ewoolsey/2-28-fix
+	cd semaphore-mtb-setup
+	go build
+	cd ..
 fi
 
 # check if s3_urls file exists
 if [ -e "contribution.env" ]; then
-    source contribution.env
+	source contribution.env
 else
-    echo "contribution.env file does not exist. Ask the coordinator to give you the file by running generate_s3_urls.sh and try again."
-    exit 1
+	echo "contribution.env file does not exist. Ask the coordinator to give you the file by running generate_s3_urls.sh and try again."
+	exit 1
 fi
 
 cd semaphore-mtb-setup
@@ -38,23 +38,23 @@ prefix="insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2"
 suffix="_parts_a"
 
 for part in {a..d}; do
- url="${baseUrl}/${prefix}${suffix}${part}"
- echo "Downloading part: ${part}..."
- curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
+	url="${baseUrl}/${prefix}${suffix}${part}"
+	echo "Downloading part: ${part}..."
+	curl --output "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}" "${url}"
 done
 
 parts=""
 
 for part in {a..d}; do
- parts="${parts} insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
+	parts="${parts} insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2${suffix}${part}"
 done
 
-cat ${parts} > "insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
+cat ${parts} >"insertion_b4385t30c$PREVIOUS_CONTRIBUTION_NUMBER.ph2"
 
 # perform the contribution
 echo "Contributing to the max insertion batch size circuit..."
 
-./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2" insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2 > contribution.log
+./semaphore-mtb-setup* p2c "insertion_b4385t30c${PREVIOUS_CONTRIBUTION_NUMBER}.ph2" insertion_b4385t30c${CONTRIBUTION_NUMBER}.ph2 >contribution.log
 
 split -n 4 "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2" "insertion_b4385t30c$CONTRIBUTION_NUMBER.ph2_parts_"
 
