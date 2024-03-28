@@ -1,3 +1,5 @@
 keys
 contribution.env
 semaphore-mtb-setup/
+**/*.ph2
+**/*.ph2_parts*
