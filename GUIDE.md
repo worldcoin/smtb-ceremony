@@ -74,7 +74,7 @@ git clone https://github.com/worldcoin/semaphore-mtb-setup.git
 mv semaphore-mtb/*.r1cs semaphore-mtb/*.ph1 semaphore-mtb-setup
 cd semaphore-mtb-setup && go build
 # the name of the phase2 file should cointain c0 at the end indicating it is the seed phase 2 file with no contributions
-./semaphore-mtb-setup p2n <MODE>_b<BATCH_SIZE>t30.ph1 <MODE>_b<BATCH_SIZE>t30.ph1 <MODE>_b<BATCH_SIZE>t30.r1cs <MODE>_b<BATCH_SIZE>t30c0.ph2
+./semaphore-mtb-setup p2n <MODE>_b<BATCH_SIZE>t30.ph1 <MODE>_b<BATCH_SIZE>t30.r1cs <MODE>_b<BATCH_SIZE>t30c0.ph2
 ```
 
 Once we have all these files, we need to back up the r1cs and ph2 files to a bucket on AWS S3. In this repo you can find an `upload.py` file where you need to replace the `<BUCKET_NAME>` variable with the name of the S3 bucket where you want to store the files. You also need to create a `keys` file where you need to write your write your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. After you are done you can upload the files with the following commands:
