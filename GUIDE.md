@@ -13,7 +13,7 @@ In the case of the World ID tree we will be working on a merkle tree of depth 30
 
 ### Phase 1
 
-In order to perform the trusted setup we will need a CLI tool which will perform the contribution. Since each trusted setup for groth16 circuits over the BN254 curve has 2 phases, 1 which is universal and 1 which is circuit-specific, it makes sense to re-use an existing phase 1. In our case we will use the [Perpetual Powers of Tau ceremony](https://github.com/privacy-scaling-explorations/perpetualpowersoftau) (PPOT) files from the latest contributor (currently Aayush Gupta).
+In order to perform the trusted setup we will need a CLI tool which will perform the contribution. Since each trusted setup for groth16 circuits over the BN254 curve has 2 phases, 1 which is universal and 1 which is circuit-specific, it makes sense to re-use an existing phase 1. In our case we will use the [Perpetual Powers of Tau ceremony hosted on the snarkjs repo](https://github.com/iden3/snarkjs?tab=readme-ov-file#7-prepare-phase-2) (PPOT) files up to the the 54th contributor.
 
 Since semaphore-mtb circuits are written using the [gnark library](https://github.com/consensys/gnark) we will first need to deserialize the ptau files generated from PPOT using snarkjs into something gnark can interpret using [ptau-deserializer](https://github.com/worldcoin/ptau-deserializer). In order to figure out which files to deserialize we need to create our SMTB r1cs circuits for the right parameters in order to figure out how many constraints each of our circuits has. Once we have done this, we will select the powers of tau files corresponding to the circuit size.
 
